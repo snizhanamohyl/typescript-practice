@@ -1,65 +1,64 @@
 "use strict";
-// chapter 2
-let myName = 'Snezha';
-let meaningOfLife;
-let isLoading;
-let album;
-myName = "Dave";
-meaningOfLife = 43;
-isLoading = true;
-album = 1984;
-const sum = (a, b) => {
+// // chapter 2
+// let myName: string = 'Snezha';
+// let meaningOfLife: number;
+// let isLoading: boolean;
+// let album: any;
+// interface PostId = stringOrNumber; //objects, classes
+// Literal types
+let myName;
+let userName;
+myName = 'Snizhana';
+userName = 'Daniia';
+// functions
+const add = (a, b) => {
     return a + b;
 };
-let postId;
-let isActive;
-let re = /\w+/g;
-// chapter 3
-let stringArr = ['hello', 'world', 'daniia'];
-let guitars = ['ghost', 'core', 1908];
-const mixedArr = ['hello', 42, false];
-stringArr[2] = 'false';
-guitars = stringArr;
-guitars.unshift('false');
-const test = [];
-const bands = [];
-bands.push('post');
-let myTuple = ['dave', 42, true];
-let mix = ['sobd', 40, false];
-mix = myTuple;
-myTuple[0] = '89';
-// objects
-let obj;
-obj = {};
-obj = [];
-const exampleObj = {
-    name: 'dave',
-    year: 2000,
+const logMsg = (message) => {
+    console.log(message);
 };
-exampleObj.name = '2000';
-let evh = {
-    name: 'dave',
-    active: true,
-    albums: ['Summer night', "mid July", 2013],
+let subtract = function (a, b) {
+    return a - b;
 };
-let jp = {
-    name: 'john',
-    albums: ['Autumn night', "mid August", 2014],
+// interface MathFunction {(a: number, b: number): number };
+let multiply = function (a, b) {
+    return a * b;
 };
-const greetGuitarist = (quitarist) => {
-    var _a;
-    if (quitarist.active) {
-        return `Hello, ${(_a = quitarist.name) === null || _a === void 0 ? void 0 : _a.toUpperCase()}`;
+logMsg(multiply(2, 5));
+// optional params
+const addAll = (a, b, c) => {
+    if (typeof c !== 'undefined') {
+        return a + b + c;
     }
-    return quitarist.name;
+    return a + b;
 };
-console.log(greetGuitarist(jp));
-var Grade;
-(function (Grade) {
-    Grade[Grade["U"] = 1] = "U";
-    Grade[Grade["D"] = 2] = "D";
-    Grade[Grade["C"] = 3] = "C";
-    Grade[Grade["B"] = 4] = "B";
-    Grade[Grade["A"] = 5] = "A";
-})(Grade || (Grade = {}));
-console.log(Grade.A);
+// default param value
+const sumAll = (a, b, c = 2) => {
+    return a + b + c;
+};
+// rest params
+const total = (...nums) => nums.reduce((prev, curr) => prev + curr);
+// never type
+const createError = (errorMsg) => {
+    throw new Error(errorMsg);
+};
+const infinite = () => {
+    let i = 1;
+    while (true) {
+        i += 1;
+        if (i > 100)
+            break;
+    }
+};
+// custom type guard
+const isNumber = (value) => {
+    return typeof value === 'number';
+};
+// use of the never type
+const numberOrString = (value) => {
+    if (isNumber(value))
+        return 'number';
+    if (typeof value === 'string')
+        return 'string';
+    return createError('This should never happen!');
+};
