@@ -1,38 +1,67 @@
 "use strict";
-// Index Signatures
-const todaysTransactions = {
-    Pizza: -10,
-    Books: -5,
-    Job: 50,
-    Dave: 42,
+const stringEcho = (arg) => arg;
+const isObj = (arg) => {
+    return (typeof arg === 'object' && !Array.isArray(arg) && arg !== null);
 };
-console.log(todaysTransactions.Pizza);
-console.log(todaysTransactions['Pizza']);
-let prop = 'Pizza';
-console.log(todaysTransactions[prop]); // or loop
-// todaysTransactions.Pizza = 60;
-console.log(todaysTransactions['Dave']);
-const student = {
-    name: 'Doug',
-    GPA: 3.5,
-    classes: [100, 200],
+console.log(isObj(['a', 90]));
+console.log(isObj({ a: 90 }));
+console.log(isObj(null));
+const isTrue = (arg) => {
+    if (Array.isArray(arg) && !arg.length) {
+        return { arg, is: false };
+    }
+    if (isObj(arg) && !Object.keys(arg).length) {
+        return { arg, is: false };
+    }
+    return { arg, is: !!arg };
 };
-// console.log(student.test)
-for (const key in student) {
-    console.log(`${key}: ${student[key]}`);
+console.log(isTrue([]));
+console.log(isTrue([1, 5, 6]));
+console.log(isTrue({}));
+console.log(isTrue({ name: 'snezha' }));
+const checkBoolValue = (arg) => {
+    if (Array.isArray(arg) && !arg.length) {
+        return { value: arg, is: false };
+    }
+    if (isObj(arg) && !Object.keys(arg).length) {
+        return { value: arg, is: false };
+    }
+    return { value: arg, is: !!arg };
+};
+const processUser = (user) => {
+    // process the user
+    return user;
+};
+console.log(processUser({ id: 4, name: 'John' }));
+const getUsersProp = (users, key) => {
+    return users.map(user => user[key]);
+};
+const usersArr = [
+    {
+        id: 1,
+        name: 'john',
+        email: 'john@mail.com'
+    },
+    {
+        id: 2,
+        name: 'amy',
+        email: 'amy@mail.com'
+    }
+];
+console.log(getUsersProp(usersArr, 'email'));
+class StateObj {
+    constructor(value) {
+        this.data = value;
+    }
+    get state() {
+        return this.data;
+    }
+    set state(value) {
+        this.data = value;
+    }
 }
-Object.keys(student).map(key => {
-    console.log(student[key]);
-});
-const logStudentKey = (student, key) => {
-    console.log(`Student ${key}: ${student[key]}`);
-};
-logStudentKey(student, 'name');
-const monthlyIncomes = {
-    salary: 500,
-    bonus: 100,
-    sidehustle: 250,
-};
-for (const revenue in monthlyIncomes) {
-    console.log(monthlyIncomes[revenue]);
-}
+const store = new StateObj('John');
+console.log(store.state);
+// store.state = 12
+const myState = new StateObj([15]);
+myState.state = ['dave', 42, true];
