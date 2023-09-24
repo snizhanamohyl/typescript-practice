@@ -1,67 +1,70 @@
 "use strict";
-const stringEcho = (arg) => arg;
-const isObj = (arg) => {
-    return (typeof arg === 'object' && !Array.isArray(arg) && arg !== null);
+// Utility types
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-console.log(isObj(['a', 90]));
-console.log(isObj({ a: 90 }));
-console.log(isObj(null));
-const isTrue = (arg) => {
-    if (Array.isArray(arg) && !arg.length) {
-        return { arg, is: false };
-    }
-    if (isObj(arg) && !Object.keys(arg).length) {
-        return { arg, is: false };
-    }
-    return { arg, is: !!arg };
+const updateAssignment = (assign, propsToUpdate) => {
+    return Object.assign(Object.assign({}, assign), propsToUpdate);
 };
-console.log(isTrue([]));
-console.log(isTrue([1, 5, 6]));
-console.log(isTrue({}));
-console.log(isTrue({ name: 'snezha' }));
-const checkBoolValue = (arg) => {
-    if (Array.isArray(arg) && !arg.length) {
-        return { value: arg, is: false };
-    }
-    if (isObj(arg) && !Object.keys(arg).length) {
-        return { value: arg, is: false };
-    }
-    return { value: arg, is: !!arg };
+// Required and Readonly
+const recordAssignment = (assign //all props are required now
+) => {
+    // send to db
+    return assign;
 };
-const processUser = (user) => {
-    // process the user
-    return user;
+const assignGraded = {
+    studentId: 'drohekreho3536',
+    title: 'some title',
+    grade: 88,
 };
-console.log(processUser({ id: 4, name: 'John' }));
-const getUsersProp = (users, key) => {
-    return users.map(user => user[key]);
+const assignVerified = Object.assign(Object.assign({}, assignGraded), { verified: true });
+// assignVerified.grade = 90;
+recordAssignment(Object.assign(Object.assign({}, assignGraded), { verified: true }));
+// Record type
+const hexColorMap = {
+    red: "FF0000",
+    green: "00FF00",
+    blue: "0000FF",
 };
-const usersArr = [
-    {
-        id: 1,
-        name: 'john',
-        email: 'john@mail.com'
-    },
-    {
-        id: 2,
-        name: 'amy',
-        email: 'amy@mail.com'
-    }
-];
-console.log(getUsersProp(usersArr, 'email'));
-class StateObj {
-    constructor(value) {
-        this.data = value;
-    }
-    get state() {
-        return this.data;
-    }
-    set state(value) {
-        this.data = value;
-    }
-}
-const store = new StateObj('John');
-console.log(store.state);
-// store.state = 12
-const myState = new StateObj([15]);
-myState.state = ['dave', 42, true];
+const finalGrades = {
+    Sara: 'B',
+    Kelly: 'U'
+};
+const Grades = {
+    Sara: { assign1: 87, assign2: 89 },
+    Kelly: { assign1: 76, assign2: 15 },
+};
+const score = {
+    studentId: 'k123',
+    grade: 85,
+};
+const preview = {
+    studentId: 'k123',
+    title: 'Final Project',
+};
+// Return type
+// type newAssign = { title: string, points: number }
+const createNewAssign = (title, points) => {
+    return { title, points };
+};
+const tsAssign = createNewAssign("Utility Types", 100);
+console.log(tsAssign);
+const assignArgs = ['generics', 100];
+const tsAssign2 = createNewAssign(...assignArgs);
+console.log(tsAssign2);
+const fetchUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch('https://jsonplaceholder.typicode.com/users').then(res => {
+        return res.json();
+    }).catch(err => {
+        if (err instanceof Error)
+            console.log(err.message);
+    });
+    return data;
+});
+fetchUsers().then(users => console.log(users));
